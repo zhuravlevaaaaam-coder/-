@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Александра Мишкель | Фотограф в Саратове</title>
+<meta name="description" content="Профессиональный фотограф в Саратове. Свадебная, семейная и индивидуальная съемка. Живые эмоции, стильные кадры.">
+<!-- Fonts: Inter -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<!-- Tailwind CSS via CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- Iconify -->
+<script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+<style>
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #F8F7F5;
+  color: #1c1917;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1.2em;
+}
+.custom-checkbox input:checked + div {
+  background-color: #C9A99A;
+  border-color: #C9A99A;
+}
+.custom-checkbox input:checked + div svg {
+  display: block;
+}
+.marquee-container {
+  display: flex;
+  width: fit-content;
+  animation: marquee 30s linear infinite;
+}
+.marquee-container:hover {
+  animation-play-state: paused;
+}
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.img-loaded {
+  animation: fadeIn 0.5s ease-in-out forwards;
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #C9A99A;
+  border-radius: 2px;
+}
+/* Lightbox */
+.lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.9);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+.lightbox.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+.lightbox img {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+}
+.lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  color: white;
+  font-size: 2rem;
+  cursor: pointer;
+}
+</style>
+</head>
+<body class="antialiased overflow-x-hidden selection:bg-[#C9A99A] selection:text-white relative">
+
+<!-- Header -->
+<header id="main-header" class="fixed top-0 left-0 w-full z-40 transition-all duration-300 bg-transparent py-4">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center">
+            <a href="#" class="text-lg md:text-xl font-semibold tracking-tighter uppercase text-current z-50">A.M.</a>
+            <nav class="hidden md:flex space-x-8 items-center">
+                <a href="#portfolio" class="nav-link relative text-sm font-medium tracking-wide hover:text-[#C9A99A] transition-colors">Портфолио</a>
+                <a href="#prices" class="nav-link relative text-sm font-medium tracking-wide hover:text-[#C9A99A] transition-colors">Цены</a>
+                <a href="#about" class="nav-link relative text-sm font-medium tracking-wide hover:text-[#C9A99A] transition-colors">Обо мне</a>
+                <a href="#reviews" class="nav-link relative text-sm font-medium tracking-wide hover:text-[#C9A99A] transition-colors">Отзывы</a>
+                <a href="#contact" class="nav-link relative text-sm font-medium tracking-wide hover:text-[#C9A99A] transition-colors">Контакты</a>
+            </nav>
+            <button id="mobile-menu-btn" class="md:hidden z-50 text-current p-2" aria-label="Меню">
+                <iconify-icon icon="solar:hamburger-menu-linear" width="1.75rem"></iconify-icon>
+            </button>
+        </div>
+    </div>
+</header>
+
+<!-- Mobile Overlay Menu -->
+<div id="mobile-menu" class="fixed inset-0 bg-[#F8F7F5] z-40 flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300">
+    <nav class="flex flex-col items-center space-y-8">
+        <a href="#portfolio" class="mobile-link text-2xl font-medium tracking-tight hover:text-[#C9A99A]">Портфолио</a>
+        <a href="#prices" class="mobile-link text-2xl font-medium tracking-tight hover:text-[#C9A99A]">Цены</a>
+        <a href="#about" class="mobile-link text-2xl font-medium tracking-tight hover:text-[#C9A99A]">Обо мне</a>
+        <a href="#reviews" class="mobile-link text-2xl font-medium tracking-tight hover:text-[#C9A99A]">Отзывы</a>
+        <a href="#contact" class="mobile-link text-2xl font-medium tracking-tight hover:text-[#C9A99A]">Контакты</a>
+    </nav>
+</div>
+
+<!-- Hero Section -->
+<section class="relative min-h-screen w-full flex items-center justify-start overflow-hidden">
+    <picture class="absolute inset-0 w-full h-full">
+        <img src="hero.jpg" alt="Свадебная съемка Саратов" class="w-full h-full object-cover object-center bg-stone-200" loading="eager">
+    </picture>
+    <div class="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent"></div>
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full mt-16 md:mt-0">
+        <div class="max-w-2xl">
+            <h1 class="text-white text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tighter leading-tight mb-4">Александра Мишкель</h1>
+            <p class="text-white/90 text-base sm:text-lg md:text-xl font-normal mb-10 tracking-wide">Фотограф в Саратове — свадьбы, семьи, портреты</p>
+            <div class="flex flex-col sm:flex-row gap-4">
+                <a href="#portfolio" class="inline-flex justify-center items-center bg-[#C9A99A] text-white px-8 py-4 rounded-full text-sm font-medium tracking-wide hover:bg-[#b89788] transition-colors shadow-sm">Смотреть портфолио</a>
+                <a href="https://t.me/buslik_photo" target="_blank" class="inline-flex justify-center items-center bg-white/10 backdrop-blur-sm text-white border border-white/30 px-8 py-4 rounded-full text-sm font-medium tracking-wide hover:bg-white hover:text-stone-900 transition-colors gap-2">
+                    <iconify-icon icon="solar:letter-linear" width="1.2rem"></iconify-icon> Написать в Telegram
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Portfolio Section -->
+<section id="portfolio" class="py-24 sm:py-32 scroll-mt-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex overflow-x-auto no-scrollbar gap-2 mb-12 pb-2 border-b border-stone-200" id="portfolio-tabs">
+            <button class="tab-btn whitespace-nowrap px-4 py-2 text-sm font-medium rounded-full bg-stone-900 text-white transition-colors" data-filter="all">Все</button>
+            <button class="tab-btn whitespace-nowrap px-4 py-2 text-sm font-medium rounded-full text-stone-500 hover:text-stone-900 transition-colors" data-filter="weddings">Свадьбы</button>
+            <button class="tab-btn whitespace-nowrap px-4 py-2 text-sm font-medium rounded-full text-stone-500 hover:text-stone-900 transition-colors" data-filter="family">Семейные</button>
+            <button class="tab-btn whitespace-nowrap px-4 py-2 text-sm font-medium rounded-full text-stone-500 hover:text-stone-900 transition-colors" data-filter="individual">Индивидуальные</button>
+            <button class="tab-btn whitespace-nowrap px-4 py-2 text-sm font-medium rounded-full text-stone-500 hover:text-stone-900 transition-colors" data-filter="couple">Парные</button>
+            <button class="tab-btn whitespace-nowrap px-4 py-2 text-sm font-medium rounded-full text-stone-500 hover:text-stone-900 transition-colors" data-filter="christening">Крещение</button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="portfolio-grid">
+            <!-- Карточки портфолио с категориями -->
+            <div class="portfolio-item group cursor-pointer relative overflow-hidden rounded-sm aspect-[3/4]" data-category="weddings" data-index="0">
+                <img src="свадьба.jpg" alt="Свадьба Ангелины и Ярослава" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                <div class="absolute inset-0 bg-stone-900/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                    <h3 class="text-white text-lg font-medium tracking-tight">Свадьба Ангелины и Ярослава 26.06.26</h3>
+                    <p class="text-white/80 text-sm mt-2 flex items-center gap-1">Смотреть историю <iconify-icon icon="solar:arrow-right-linear"></iconify-icon></p>
+                </div>
+            </div>
+            <div class="portfolio-item group cursor-pointer relative overflow-hidden rounded-sm aspect-[3/4]" data-category="weddings" data-index="1">
+                <img src="гарибальди.jpg" alt="Гарибальди" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                <div class="absolute inset-0 bg-stone-900/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                    <h3 class="text-white text-lg font-medium tracking-tight">Прогулка. Замок Гарибальди</h3>
+                    <p class="text-white/80 text-sm mt-2 flex items-center gap-1">Смотреть историю <iconify-icon icon="solar:arrow-right-linear"></iconify-icon></p>
+                </div>
+            </div>
+            <div class="portfolio-item group cursor-pointer relative overflow-hidden rounded-sm aspect-[3/4]" data-category="family" data-index="2">
+                <img src="семейная.jpg" alt="Семейная фотосессия" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                <div class="absolute inset-0 bg-stone-900/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                    <h3 class="text-white text-lg font-medium tracking-tight">Закатные лучи</h3>
+                    <p class="text-white/80 text-sm mt-2 flex items-center gap-1">Смотреть историю <iconify-icon icon="solar:arrow-right-linear"></iconify-icon></p>
+                </div>
+            </div>
+            <div class="portfolio-item group cursor-pointer relative overflow-hidden rounded-sm aspect-[3/4]" data-category="individual" data-index="3">
+                <img src="портрет.jpg" alt="Индивидуальная съемка" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                <div class="absolute inset-0 bg-stone-900/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                    <h3 class="text-white text-lg font-medium tracking-tight">Портрет</h3>
+                    <p class="text-white/80 text-sm mt-2 flex items-center gap-1">Смотреть историю <iconify-icon icon="solar:arrow-right-linear"></iconify-icon></p>
+                </div>
+            </div>
+            <div class="portfolio-item group cursor-pointer relative overflow-hidden rounded-sm aspect-[3/4]" data-category="couple" data-index="4">
+                <img src="парная.jpg" alt="Парная съемка" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                <div class="absolute inset-0 bg-stone-900/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                    <h3 class="text-white text-lg font-medium tracking-tight">Любовь в каждом жесте</h3>
+                    <p class="text-white/80 text-sm mt-2 flex items-center gap-1">Смотреть историю <iconify-icon icon="solar:arrow-right-linear"></iconify-icon></p>
+                </div>
+            </div>
+            <div class="portfolio-item group cursor-pointer relative overflow-hidden rounded-sm aspect-[3/4]" data-category="christening" data-index="5">
+                <img src="крещение.jpg" alt="Крещение" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                <div class="absolute inset-0 bg-stone-900/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                    <h3 class="text-white text-lg font-medium tracking-tight">Таинство Крещения</h3>
+                    <p class="text-white/80 text-sm mt-2 flex items-center gap-1">Смотреть историю <iconify-icon icon="solar:arrow-right-linear"></iconify-icon></p>
+                </div>
+            </div>
+        </div>
+        <div class="mt-12 text-center">
+            <a href="#contact" class="inline-flex justify-center items-center border border-stone-300 bg-white text-stone-900 px-8 py-3 rounded-full text-sm font-medium tracking-wide hover:border-[#C9A99A] hover:text-[#C9A99A] transition-colors">Обсудить вашу съемку</a>
+        </div>
+    </div>
+</section>
+
+<!-- Prices Section -->
+<section id="prices" class="py-24 sm:py-32 bg-white scroll-mt-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-semibold tracking-tight text-stone-900 mb-4">Инвестиции в воспоминания</h2>
+            <p class="text-stone-500 text-base max-w-2xl mx-auto">Цена фиксируется в договоре. Никаких скрытых доплат.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <div class="flex flex-col p-8 border border-stone-100 bg-[#F8F7F5] rounded-xl relative group hover:shadow-lg transition-shadow duration-300">
+                <h3 class="text-xl font-semibold tracking-tight text-stone-900 mb-2">Лёгкий</h3>
+                <div class="text-2xl font-medium text-stone-900 mb-6">от 15 000 ₽</div>
+                <ul class="space-y-4 mb-8 flex-1">
+                    <li class="flex items-start gap-3 text-sm text-stone-600"><iconify-icon icon="solar:clock-circle-linear" class="text-[#C9A99A] mt-0.5" width="1.2rem"></iconify-icon> До 2 часов съемки</li>
+                    <li class="flex items-start gap-3 text-sm text-stone-600"><iconify-icon icon="solar:gallery-linear" class="text-[#C9A99A] mt-0.5" width="1.2rem"></iconify-icon> От 100 фото в авторской обработке</li>
+                    <li class="flex items-start gap-3 text-sm text-stone-600"><iconify-icon icon="solar:calendar-linear" class="text-[#C9A99A] mt-0.5" width="1.2rem"></iconify-icon> Готовность до 14 дней</li>
+                </ul>
+                <a href="#contact" onclick="selectPackage('Лёгкий')" class="w-full text-center py-3 px-4 bg-white border border-stone-200 rounded-full text-sm font-medium text-stone-900 hover:border-[#C9A99A] hover:text-[#C9A99A] transition-colors">Выбрать</a>
+            </div>
+            <div class="flex flex-col p-8 border-2 border-[#C9A99A] bg-white rounded-xl relative shadow-md scale-100 md:scale-105 z-10">
+                <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#C9A99A] text-white text-xs font-medium px-3 py-1 rounded-full uppercase tracking-wider">Популярный</div>
+                <h3 class="text-xl font-semibold tracking-tight text-stone-900 mb-2">Основной</h3>
+                <div class="text-2xl font-medium text-stone-900 mb-6">от 35 000 ₽</div>
+                <ul class="space-y-4 mb-8 flex-1">
+                    <li class="flex items-start gap-3 text-sm text-stone-600"><iconify-icon icon="solar:clock-circle-linear" class="text-[#C9A99A] mt-0.5" width="1.2rem"></iconify-icon> До 6 часов съемки</li>
+                    <li class="flex items-start gap-3 text-sm text-stone-600"><iconify-icon icon="solar:gallery-linear" class="text-[#C9A99A] mt-0.5" width="1.2rem"></iconify-icon> От 300 фото в авторской обработке</li>
+                    <li class="flex items-start gap-3 text-sm text-stone-600"><iconify-icon icon="solar:camera-linear" class="text-[#C9A99A] mt-0.5" width="1.2rem"></iconify-icon> Помощь в позировании и локациях</li>
+                    <li class="flex items-start gap-3 text-sm text-stone-600"><iconify-icon icon="solar:calendar-linear" class="text-[#C9A99A] mt-0.5" width="1.2rem"></iconify-icon> Готовность до 30 дней</li>
+                </ul>
+                <a href="#contact" onclick="selectPackage('Основной')" class="w-full text-center py-3 px-4 bg-[#C9A99A] text-white rounded-full text-sm font-medium hover:bg-[#b89788] transition-colors">Выбрать</a>
+            </div>
+            <div class="flex flex-col p-8 border border-stone-100 bg-[#F8F7F5] rounded-xl relative group hover:shadow-lg transition-shadow duration-300">
+                <h3 class="text-xl font-semibold tracking-tight text-stone-900 mb-2">Полный день</h3>
+                <div class="text-2xl font-medium text-stone-900 mb-6">от 60 000 ₽</div>
+                <ul class="space-y-4 mb-8 flex-1">
+                    <li class="flex items-start gap-3 text-sm text-stone-600"><iconify-icon icon="solar:clock-circle-linear" class="text-[#C9A99A] mt-0.5" width="1.2rem"></iconify-icon> До 12 часов съемки</li>
+                    <li class="flex items-start gap-3 text-sm text-stone-600"><iconify-icon icon="solar:gallery-linear" class="text-[#C9A99A] mt-0.5" width="1.2rem"></iconify-icon> От 600 фото + анонс за 3 дня</li>
+                    <li class="flex items-start gap-3 text-sm text-stone-600"><iconify-icon icon="solar:box-linear" class="text-[#C9A99A] mt-0.5" width="1.2rem"></iconify-icon> Деревянный бокс с распечатками</li>
+                </ul>
+                <a href="#contact" onclick="selectPackage('Полный день')" class="w-full text-center py-3 px-4 bg-white border border-stone-200 rounded-full text-sm font-medium text-stone-900 hover:border-[#C9A99A] hover:text-[#C9A99A] transition-colors">Выбрать</a>
+            </div>
+        </div>
+        <div class="mt-16 flex flex-col items-center">
+            <a href="#" class="inline-flex items-center gap-2 text-stone-900 font-medium text-sm border-b border-stone-900 pb-1 hover:text-[#C9A99A] hover:border-[#C9A99A] transition-colors group">
+                <iconify-icon icon="solar:download-linear" class="group-hover:-translate-y-0.5 transition-transform" width="1.2rem"></iconify-icon> Скачать полный прайс-лист (PDF)
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section id="about" class="py-24 sm:py-32 overflow-hidden scroll-mt-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div class="order-2 lg:order-1">
+                <h2 class="text-3xl md:text-4xl font-semibold tracking-tight text-stone-900 mb-6">Обо мне</h2>
+                <div class="space-y-4 text-base text-stone-600 font-light leading-relaxed mb-8">
+                    <p>Привет. Я Саша, и я снимаю про вас. Я живу и работаю в Саратове, но с радостью выезжаю за пределы региона ради красивых историй.</p>
+                    <p>Мой подход — это отсутствие искусственных поз. Я не буду просить вас замереть на 5 минут с неестественной улыбкой. Мы будем гулять по Набережной Космонавтов, пить кофе в старом центре, разговаривать, смеяться. Я создаю комфортную атмосферу, в которой расслабляются даже самые суровые женихи и застенчивые интроверты.</p>
+                    <p>В фотографии для меня важны цвет, свет и искренность момента. Я ловлю ветер в волосах, случайные касания и настоящие слёзы радости.</p>
+                </div>
+                <blockquote class="pl-6 border-l-2 border-[#C9A99A] py-2 mb-8">
+                    <p class="text-xl md:text-2xl font-medium tracking-tight text-stone-900 leading-snug">«Мне не нужно, чтобы вы умели позировать. Мне важно, чтобы вы были собой.»</p>
+                </blockquote>
+                <img src="" alt="Подпись Александры" class="h-12 opacity-80 mix-blend-multiply grayscale">
+            </div>
+            <div class="order-1 lg:order-2 relative">
+                <div class="aspect-[4/5] rounded-lg overflow-hidden bg-stone-200">
+                    <img src="сашенька.jpg" alt="Александра Мишкель в процессе работы" class="w-full h-full object-cover object-center">
+                </div>
+                <div class="absolute -bottom-6 -left-6 w-32 h-32 border border-stone-300 rounded-full -z-10 hidden sm:block"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Reviews Section -->
+<section id="reviews" class="py-24 bg-white border-t border-stone-100 scroll-mt-16 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12 text-center">
+        <h2 class="text-3xl font-semibold tracking-tight text-stone-900">Что говорят пары</h2>
+    </div>
+    <div class="relative w-full">
+        <div class="absolute top-0 left-0 w-16 md:w-32 h-full bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
+        <div class="absolute top-0 right-0 w-16 md:w-32 h-full bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
+        <div class="marquee-container gap-6 px-4">
+            <!-- Первая копия -->
+            <div class="flex gap-6">
+                <div class="w-80 flex-shrink-0 bg-[#F8F7F5] rounded-2xl p-6 shadow-sm border border-stone-100">
+                    <div class="flex items-center gap-3 mb-4"><div class="w-10 h-10 rounded-full bg-stone-300 flex items-center justify-center text-sm font-medium text-stone-700">Е</div><div><div class="text-sm font-medium text-stone-900 flex items-center gap-1">Екатерина <iconify-icon icon="solar:check-circle-linear" class="text-blue-500" width="1rem"></iconify-icon></div><div class="text-xs text-stone-500 flex items-center gap-1"><iconify-icon icon="logos:telegram" width="0.8rem"></iconify-icon> Telegram</div></div></div>
+                    <p class="text-sm text-stone-700 leading-relaxed">Саша, фото просто разрыв! 🔥 Мы с мужем вообще не умеем фоткаться, но с тобой было так легко. Пересматриваем уже третий раз, прям до мурашек. Спасибо тебе огромное за эту память!</p>
+                </div>
+                <div class="w-80 flex-shrink-0 bg-[#F8F7F5] rounded-2xl p-6 shadow-sm border border-stone-100">
+                    <div class="flex items-center gap-3 mb-4"><div class="w-10 h-10 rounded-full bg-stone-300 flex items-center justify-center text-sm font-medium text-stone-700">А</div><div><div class="text-sm font-medium text-stone-900">Анна и Максим</div><div class="text-xs text-stone-500 flex items-center gap-1"><span class="w-3 h-3 bg-blue-600 rounded-sm flex items-center justify-center text-white text-[8px] font-bold">VK</span> ВКонтакте</div></div></div>
+                    <p class="text-sm text-stone-700 leading-relaxed">Александра, спасибо за невероятную свадебную съёмку! Вы получили каждую эмоцию, каждую деталь. Фотографии такие живые, что мы до сих пор их пересматриваем и плачем от счастья. ❤️</p>
+                </div>
+                <div class="w-80 flex-shrink-0 bg-[#F8F7F5] rounded-2xl p-6 shadow-sm border border-stone-100">
+                    <div class="flex items-center gap-3 mb-4"><div class="w-10 h-10 rounded-full bg-stone-300 flex items-center justify-center text-sm font-medium text-stone-700">Д</div><div><div class="text-sm font-medium text-stone-900">Дмитрий</div><div class="text-xs text-stone-500"><iconify-icon icon="logos:instagram" width="0.8rem"></iconify-icon> Instagram</div></div></div>
+                    <p class="text-sm text-stone-700 leading-relaxed">Лучший фотограф в Саратове! Индивидуальный подход, лёгкая атмосфера, результат превзошёл ожидания. Рекомендую на все 100%.</p>
+                </div>
+            </div>
+            <!-- Дублирующая копия для бесконечности -->
+            <div class="flex gap-6">
+                <div class="w-80 flex-shrink-0 bg-[#F8F7F5] rounded-2xl p-6 shadow-sm border border-stone-100">
+                    <div class="flex items-center gap-3 mb-4"><div class="w-10 h-10 rounded-full bg-stone-300 flex items-center justify-center text-sm font-medium text-stone-700">Е</div><div><div class="text-sm font-medium text-stone-900 flex items-center gap-1">Екатерина <iconify-icon icon="solar:check-circle-linear" class="text-blue-500" width="1rem"></iconify-icon></div><div class="text-xs text-stone-500 flex items-center gap-1"><iconify-icon icon="logos:telegram" width="0.8rem"></iconify-icon> Telegram</div></div></div>
+                    <p class="text-sm text-stone-700 leading-relaxed">Саша, фото просто разрыв! 🔥 Мы с мужем вообще не умеем фоткаться, но с тобой было так легко. Пересматриваем уже третий раз, прям до мурашек. Спасибо тебе огромное за эту память!</p>
+                </div>
+                <div class="w-80 flex-shrink-0 bg-[#F8F7F5] rounded-2xl p-6 shadow-sm border border-stone-100">
+                    <div class="flex items-center gap-3 mb-4"><div class="w-10 h-10 rounded-full bg-stone-300 flex items-center justify-center text-sm font-medium text-stone-700">А</div><div><div class="text-sm font-medium text-stone-900">Анна и Максим</div><div class="text-xs text-stone-500 flex items-center gap-1"><span class="w-3 h-3 bg-blue-600 rounded-sm flex items-center justify-center text-white text-[8px] font-bold">VK</span> ВКонтакте</div></div></div>
+                    <p class="text-sm text-stone-700 leading-relaxed">Александра, спасибо за невероятную свадебную съёмку! Вы получили каждую эмоцию, каждую деталь. Фотографии такие живые, что мы до сих пор их пересматриваем и плачем от счастья. ❤️</p>
+                </div>
+                <div class="w-80 flex-shrink-0 bg-[#F8F7F5] rounded-2xl p-6 shadow-sm border border-stone-100">
+                    <div class="flex items-center gap-3 mb-4"><div class="w-10 h-10 rounded-full bg-stone-300 flex items-center justify-center text-sm font-medium text-stone-700">Д</div><div><div class="text-sm font-medium text-stone-900">Дмитрий</div><div class="text-xs text-stone-500"><iconify-icon icon="logos:instagram" width="0.8rem"></iconify-icon> Instagram</div></div></div>
+                    <p class="text-sm text-stone-700 leading-relaxed">Лучший фотограф в Саратове! Индивидуальный подход, лёгкая атмосфера, результат превзошёл ожидания. Рекомендую на все 100%.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section (добавлена для полноты) -->
+<section id="contact" class="py-24 scroll-mt-16 bg-[#F8F7F5]">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl md:text-4xl font-semibold tracking-tight text-stone-900 mb-4">Давайте создадим историю</h2>
+        <p class="text-stone-500 mb-8">Напишите мне, и мы обсудим детали съемки, подберем локацию и настроение.</p>
+        <div class="bg-white p-8 rounded-2xl shadow-sm">
+            <form id="contact-form" onsubmit="event.preventDefault(); alert('Спасибо! Я свяжусь с вами в ближайшее время.');">
+                <input type="text" placeholder="Ваше имя" class="w-full border border-stone-200 rounded-full px-5 py-3 mb-4 focus:outline-none focus:border-[#C9A99A]">
+                <input type="email" placeholder="Email или Telegram" class="w-full border border-stone-200 rounded-full px-5 py-3 mb-4 focus:outline-none focus:border-[#C9A99A]">
+                <textarea rows="3" placeholder="Расскажите о вашей идее..." class="w-full border border-stone-200 rounded-2xl px-5 py-3 mb-4 focus:outline-none focus:border-[#C9A99A]"></textarea>
+                <button type="submit" class="bg-[#C9A99A] text-white px-8 py-3 rounded-full text-sm font-medium hover:bg-[#b89788] transition-colors">Отправить</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- Lightbox -->
+<div id="lightbox" class="lightbox" onclick="closeLightbox()">
+    <span class="lightbox-close">&times;</span>
+    <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+    // Мобильное меню
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (menuBtn && mobileMenu) {
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('opacity-0');
+            mobileMenu.classList.toggle('pointer-events-none');
+        });
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('opacity-0', 'pointer-events-none');
+            });
+        });
+    }
+
+    // Фильтрация портфолио
+    const filterButtons = document.querySelectorAll('.tab-btn');
+    const portfolioItems = document.querySelectorAll('.portfolio-item');
+    filterButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const filter = btn.getAttribute('data-filter');
+            filterButtons.forEach(b => {
+                if (b === btn) {
+                    b.classList.add('bg-stone-900', 'text-white');
+                    b.classList.remove('text-stone-500');
+                } else {
+                    b.classList.remove('bg-stone-900', 'text-white');
+                    b.classList.add('text-stone-500');
+                }
+            });
+            portfolioItems.forEach(item => {
+                if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                    item.style.display = '';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    });
+    // Показать все изначально
+    portfolioItems.forEach(item => item.style.display = '');
+
+    // Lightbox с массивом изображений
+    const images = [
+        "https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&q=80&w=800",
+        "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&q=80&w=800",
+        "https://images.unsplash.com/photo-1542037104857-ffbb0b9155fb?auto=format&fit=crop&q=80&w=800",
+        "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&q=80&w=800",
+        "https://images.unsplash.com/photo-1587309661006-97e4d877a2f5?auto=format&fit=crop&q=80&w=800",
+        "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&q=80&w=800"
+    ];
+    function openLightbox(index) {
+        const lightbox = document.getElementById('lightbox');
+        const img = document.getElementById('lightbox-img');
+        if (img && lightbox && images[index]) {
+            img.src = images[index];
+            lightbox.classList.add('active');
+        }
+    }
+    function closeLightbox() {
+        const lightbox = document.getElementById('lightbox');
+        if (lightbox) lightbox.classList.remove('active');
+    }
+    // Привязываем openLightbox к каждому portfolio-item
+    document.querySelectorAll('.portfolio-item').forEach((item, idx) => {
+        item.addEventListener('click', () => openLightbox(parseInt(item.dataset.index)));
+    });
+    // Функция выбора пакета для контактов
+    window.selectPackage = function(pkg) {
+        const contactSection = document.getElementById('contact');
+        if (contactSection) {
+            const textarea = document.querySelector('#contact-form textarea');
+            if (textarea) {
+                textarea.value = `Интересуюсь пакетом "${pkg}". Хочу обсудить детали.`;
+            }
+            contactSection.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+    // Активная навигация при скролле
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
+    function updateActiveNav() {
+        let current = '';
+        const scrollPos = window.scrollY + 200;
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+            if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+                current = section.getAttribute('id');
+            }
+        });
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            const href = link.getAttribute('href').substring(1);
+            if (href === current) link.classList.add('active');
+        });
+    }
+    window.addEventListener('scroll', updateActiveNav);
+    updateActiveNav();
+    // Header прозрачность
+    window.addEventListener('scroll', () => {
+        const header = document.getElementById('main-header');
+        if (window.scrollY > 50) header.classList.add('bg-white/80', 'backdrop-blur-md', 'shadow-sm');
+        else header.classList.remove('bg-white/80', 'backdrop-blur-md', 'shadow-sm');
+    });
+</script>
+</body>
+</html>
